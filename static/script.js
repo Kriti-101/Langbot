@@ -21,6 +21,20 @@ function appendMessage(message, sender) {
     messagesDiv.appendChild(messageDiv);
 }
 
+// Function to send message to Flask server and get OpenAI response
+function sendMessage(message) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'lang.py', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            appendMessage(response.message, 'bot'); // Assuming the response contains a 'message' field
+        }
+    };
+    xhr.send(JSON.stringify({ message: message }));
+}
+
 // Function to speak text using TTS
 function speakText() {
     var textToSpeak = document.getElementById("textToSpeak").value;

@@ -1,6 +1,8 @@
 # Create the language teaching assistant
+import openai
 from openai import OpenAI
 import time
+from flask import request, jsonify
 
 client = OpenAI(api_key="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")
 
@@ -49,8 +51,12 @@ messages = client.beta.threads.messages.list(
 print(messages)
 print(messages.data[0].content[0].text.value)
 
-
-'''
-for msg in reversed(messages.data):
-    print(msg.content[0].text.value)
-'''
+def openai_endpoint():
+    message = request.json.get('message')
+    # Use OpenAI logic here to generate response
+    response = openai.Completion.create(
+        engine="text-davinci-002",
+        prompt=message,
+        max_tokens=50
+    )
+    return jsonify({'message': response['choices'][0]['text']})

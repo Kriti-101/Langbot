@@ -7,7 +7,15 @@
   <h1>Chat generation example</h1>
   </head>
   <body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
 
-    
+    <div class="container">
+        <div class="conversation">
+            <div class="messages" id="messages"></div>
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
 </body>
 </html>
