@@ -4,7 +4,7 @@ from openai import OpenAI
 import time
 from flask import request, jsonify
 
-client = OpenAI(api_key="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")
+client = OpenAI()
 
 assistant = client.beta.assistants.create(
     name="Lang_bot",
