@@ -7,9 +7,10 @@
   <h1>Language Learning App</h1>
   </head>
   <body>
-    <link rel="stylesheet" href="style.css">
-     
-    <script src="script.js"></script>
+   
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> 
+    
     <h2> About</h2>
     <p> Langbot is a digital language learning environment that offers immersive
         experiences, real-life connect, and customizable learning paths to empower
