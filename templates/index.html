@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langbot</title>
+  <h1>Language Learning App</h1>
+  </head>
+  <body>
+    <link rel="stylesheet" href="style.css">
+     
+    <script src="script.js"></script>
+    <h2> About</h2>
+    <p> Langbot is a digital language learning environment that offers immersive
+        experiences, real-life connect, and customizable learning paths to empower
+        learners of all backgrounds and proficiency levels.</p>
+    <p> Our features include inteactive conversations and mini games optimised for learning.</p>
+    <div class="container">
+        <div class="conversation">
+            <div class="messages" id="messages"></div>
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <div class="tts">
+            <textarea id="textToSpeak" placeholder="Type text to speak..."></textarea>
+            <button onclick="speakText()">Speak</button>
+        </div>
+    </div>
+  </body>
+</html>
