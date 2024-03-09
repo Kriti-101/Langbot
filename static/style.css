@@ -1,7 +1,7 @@
 body {
     font-family: silkscreen;
-    margin: 0;
-    padding: 0;
+    margin: 40;
+    padding: 40;
     display: flex;
     flex-direction: column;
     align-items: center;
