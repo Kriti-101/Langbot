@@ -64,24 +64,12 @@ def conversation():
 def pictionary():
     language = request.args.get('language', 'English')     
 
-    
-    # Initialize session with 'current_index' if not set
-    if 'current_index' not in session:
-        session['current_index'] = 0
-        
-    # Retrieve the current word and image pair index from session
-    current_index = session.get('current_index', 0)
-
     for i in word_image_database.get(language, []):
         if request.method == 'POST':
             guess_word = request.form['guess_word']
             if guess_word.lower() == word.lower():
                 message = 'Correct!'   
-                current_index = (current_index + 1) % len(word_image_database[language])
-                # Store the updated current index in session
-                session['current_index'] = current_index
-                # Redirect to the same route to display the next image
-                return redirect(url_for('pictionary', language=language))
+                
             else:
                 message = 'Incorrect! Try again.'
         
@@ -89,6 +77,12 @@ def pictionary():
             message = ''
         
     return render_template('pictionary.html', language=language, word=word, image=image, message=message)
+def next_image():
+    global current_index
+    # Check if current_index is within the range of image_urls
+    if current_index < len(6) - 1:
+        current_index += 1
+    return jsonify({'image_url': "{{ url_for('static', filename=image) }}"[current_index]})
 
 @app.route('/quiz')
 def quiz():
