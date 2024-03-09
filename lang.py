@@ -2,8 +2,8 @@
 from openai import OpenAI
 import time
 
-client = OpenAI() 
-OpenAI.api_key = "9nzxRylFpfJC5vbHl3mYT3BlbkFJyMG44ypI7tvI0WwvF1yd"
+client = OpenAI(api_key="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")
+
 assistant = client.beta.assistants.create(
     name="Lang_bot",
     instructions="You are a helpful assistant who interacts with the user to teach them languages. You have to clear their doubts and answer to the point. Assume the role given by the user and continue to chat with them.",
