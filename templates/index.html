@@ -1,33 +1,354 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="language learning, bilingual, multilingual, language app, language tools"
+    />
+    <meta
+      name="description"
+      content="Your Language Learning Web App helps you learn multiple languages with ease. Explore our interactive courses, practice exercises, and language tools to enhance your language skills."
+    />
+    <link
+      href="{{ url_for('static', filename='img/favicon.ico') }}"
+      rel="icon"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='lib/animate/animate.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
     <title>Langbot</title>
-  <h1>Language Learning App</h1>
+    <h1>Language Learning App</h1>
   </head>
   <body>
-    <nav class="navbar">
-      <ul>
-          <li><a href="quiz">Quiz</a></li>
-          <li><a href="mcq">MCQ</a></li>
-          <li><a href="oral">Oral Interaction</a></li>
-          <li><a href="contact">Contact</a></li>
-      </ul>
-  </nav>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> 
-    
-    <h2> About</h2>
-    <p> Langbot is a digital language learning environment that offers immersive
-        experiences, real-life connect, and customizable learning paths to empower
-        learners of all backgrounds and proficiency levels.</p>
-    <p> Our features include inteactive conversations and mini games optimised for learning.</p>
-    <div class="container">
-        <div class="tts">
-            <textarea id="textToSpeak" placeholder="Type text to speak..."></textarea>
-            <button onclick="speakText()">Speak</button>
-        </div>
+    <div
+      id="spinner"
+      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
     </div>
+
+    <nav
+      class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
+    >
+      <a
+        href="index.html"
+        class="navbar-brand d-flex align-items-center px-4 px-lg-5"
+      >
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Langbot</h2>
+      </a>
+      <button
+        type="button"
+        class="navbar-toggler me-4"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+          <a href="home" class="nav-item nav-link active">Home</a>
+          <a href="conversation" class="nav-item nav-link">Conversation</a>
+          <div class="nav-item dropdown">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              >Games</a
+            >
+            <div class="dropdown-menu fade-down m-0">
+              <a href="quiz" class="dropdown-item">Quiz</a>
+              <a href="game" class="dropdown-item">GAME</a>
+            </div>
+          </div>
+          <a href="contact" class="nav-item nav-link">Contact</a>
+        </div>
+        <!-- <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+          >Join Now<i class="fa fa-arrow-right ms-3"></i
+        ></a> -->
+      </div>
+    </nav>
+
+    <div class="container-fluid p-0 mb-5">
+      <div class="owl-carousel header-carousel position-relative">
+        <div class="owl-carousel-item position-relative">
+          <img
+            class="img-fluid"
+            src="{{ url_for('static', filename='img/carousel-1.jpeg') }}"
+            alt=""
+          />
+          <div
+            class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+            style="background: rgba(24, 29, 56, 0.7)"
+          >
+            <div class="container">
+              <div class="row justify-content-start">
+                <div class="col-sm-10 col-lg-8">
+                  <h5
+                    class="text-primary text-uppercase mb-3 animated slideInDown"
+                  >
+                    Learn Any Language
+                  </h5>
+                  <h1 class="display-3 text-white animated slideInDown">
+                    Master a New Language with Ease
+                  </h1>
+                  <p class="fs-5 text-white mb-4 pb-2">
+                    Start your language learning journey today and become fluent
+                    in no time. Our platform offers immersive experiences,
+                    real-life scenarios, and customizable learning paths
+                    tailored to your needs.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                    >Explore Courses</a
+                  >
+                  <a
+                    href="#"
+                    class="btn btn-light py-md-3 px-md-5 animated slideInRight"
+                    >Sign Up Now</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="owl-carousel-item position-relative">
+          <img
+            class="img-fluid"
+            src="{{ url_for('static', filename='img/carousel-2.jpeg') }}"
+            alt=""
+          />
+          <div
+            class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+            style="background: rgba(24, 29, 56, 0.7)"
+          >
+            <div class="container">
+              <div class="row justify-content-start">
+                <div class="col-sm-10 col-lg-8">
+                  <h5
+                    class="text-primary text-uppercase mb-3 animated slideInDown"
+                  >
+                    Interactive Learning
+                  </h5>
+                  <h1 class="display-3 text-white animated slideInDown">
+                    Engage in Fun Language Activities
+                  </h1>
+                  <p class="fs-5 text-white mb-4 pb-2">
+                    Our platform offers a variety of mini-games that simulate
+                    real-world situations, making language learning enjoyable
+                    and effective. Practice speaking, listening, and
+                    comprehension skills while having fun.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                    >Try Mini Games</a
+                  >
+                  <a
+                    href="#"
+                    class="btn btn-light py-md-3 px-md-5 animated slideInRight"
+                    >Get Started</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="language-selection">
+      <div class="language-section known-language">
+        <h3 class="section-title">Select Your Known Language</h3>
+        <div class="language-row">
+          <div id="english-language-known" class="language-item">
+            <h6 class="language-code">EN</h6>
+            <h4 class="language-name"><a href="#">English</a></h4>
+          </div>
+          <div id="hindi-language-known" class="language-item">
+            <h6 class="language-code">HI</h6>
+            <h4 class="language-name"><a href="#">Hindi</a></h4>
+          </div>
+          <div id="spanish-language-known" class="language-item">
+            <h6 class="language-code">ES</h6>
+            <h4 class="language-name"><a href="#">Spanish</a></h4>
+          </div>
+        </div>
+        <div class="language-row">
+          <div id="japanese-language-known" class="language-item">
+            <h6 class="language-code">JP</h6>
+            <h4 class="language-name"><a href="#">Japanese</a></h4>
+          </div>
+          <div id="german-language-known" class="language-item">
+            <h6 class="language-code">DE</h6>
+            <h4 class="language-name"><a href="#">German</a></h4>
+          </div>
+          <div id="french-language-known" class="language-item">
+            <h6 class="language-code">FR</h6>
+            <h4 class="language-name"><a href="#">French</a></h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="language-section desired-language">
+        <h3 class="section-title">Select the Language You Want to Learn</h3>
+        <div class="language-row">
+          <div id="english-language-known" class="language-item">
+            <h6 class="language-code">EN</h6>
+            <h4 class="language-name"><a href="#">English</a></h4>
+          </div>
+          <div id="hindi-language-known" class="language-item">
+            <h6 class="language-code">HI</h6>
+            <h4 class="language-name"><a href="#">Hindi</a></h4>
+          </div>
+          <div id="spanish-language-known" class="language-item">
+            <h6 class="language-code">ES</h6>
+            <h4 class="language-name"><a href="#">Spanish</a></h4>
+          </div>
+        </div>
+        <div class="language-row">
+          <div id="japanese-language-known" class="language-item">
+            <h6 class="language-code">JP</h6>
+            <h4 class="language-name"><a href="#">Japanese</a></h4>
+          </div>
+          <div id="german-language-known" class="language-item">
+            <h6 class="language-code">DE</h6>
+            <h4 class="language-name"><a href="#">German</a></h4>
+          </div>
+          <div id="french-language-known" class="language-item">
+            <h6 class="language-code">FR</h6>
+            <h4 class="language-name"><a href="#">French</a></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="container">
+      <div class="tts">
+        <textarea
+          id="textToSpeak"
+          placeholder="Type text to speak..."
+        ></textarea>
+        <button onclick="speakText()">Speak</button>
+      </div>
+    </div> -->
+
+    <div class="container-xxl py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="service-item text-center pt-3">
+              <div class="p-4">
+                <i class="fa fa-3x fa-language text-primary mb-4"></i>
+                <h5 class="mb-3">Multilingual Learning</h5>
+                <p>
+                  Immerse yourself in a multilingual learning environment with
+                  support for various languages, catering to learners from
+                  diverse backgrounds.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="service-item text-center pt-3">
+              <div class="p-4">
+                <i class="fa fa-3x fa-users text-primary mb-4"></i>
+                <h5 class="mb-3">Interactive Community</h5>
+                <p>
+                  Engage with our vibrant community of language learners, share
+                  experiences, and practice your language skills with peers from
+                  around the world.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="service-item text-center pt-3">
+              <div class="p-4">
+                <i class="fa fa-3x fa-desktop text-primary mb-4"></i>
+                <h5 class="mb-3">Flexible Learning Paths</h5>
+                <p>
+                  Choose from a range of customizable learning paths tailored to
+                  your proficiency level, learning goals, and preferred study
+                  pace.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+            <div class="service-item text-center pt-3">
+              <div class="p-4">
+                <i class="fa fa-3x fa-gamepad text-primary mb-4"></i>
+                <h5 class="mb-3">Engaging Activities</h5>
+                <p>
+                  Enjoy a variety of interactive activities and games designed
+                  to make language learning fun, engaging, and effective.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+      ><i class="bi bi-arrow-up"></i
+    ></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
+  <!-- <nav class="navbar">
+      <ul>
+        <li><a href="quiz">Quiz</a></li>
+        <li><a href="mcq">MCQ</a></li>
+        <li><a href="oral">Oral Interaction</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+    </nav> -->
 </html>
