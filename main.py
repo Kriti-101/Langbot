@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, jsonify, session
+from flask import Flask, render_template, url_for, request, jsonify, session, redirect
 import openai
 from openai import OpenAI
 import time
@@ -64,12 +64,24 @@ def conversation():
 def pictionary():
     language = request.args.get('language', 'English')     
 
+    
+    # Initialize session with 'current_index' if not set
+    if 'current_index' not in session:
+        session['current_index'] = 0
+        
+    # Retrieve the current word and image pair index from session
+    current_index = session.get('current_index', 0)
+
     for i in word_image_database.get(language, []):
         if request.method == 'POST':
             guess_word = request.form['guess_word']
             if guess_word.lower() == word.lower():
                 message = 'Correct!'   
-
+                current_index = (current_index + 1) % len(word_image_database[language])
+                # Store the updated current index in session
+                session['current_index'] = current_index
+                # Redirect to the same route to display the next image
+                return redirect(url_for('pictionary', language=language))
             else:
                 message = 'Incorrect! Try again.'
         
