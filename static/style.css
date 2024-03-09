@@ -54,3 +54,40 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* Style the navbar */
+.navbar {
+    background-color: #3a919b; /* Dark background color */
+    overflow: hidden; /* Ensure all navbar content is visible */
+  }
+  
+  /* Style the links inside the navbar */
+  .navbar a {
+    /* Float the links to the left side */
+    display: block; /* Display links as block elements */
+    color: white; /* Text color */
+    text-align: center; /* Center-align text */
+    padding: 20px; /* Add padding around the links */
+    text-decoration: none; /* Remove underlines from links */
+    margin: 20px
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the navigation links */
+li {
+    display: inline; /* Display the list items horizontally */
+    margin-right: 20px; /* Add some spacing between links */
+    float : left
+}
+  
+  /* Change the color of links on hover */
+  .navbar a:hover {
+    background-color: #ddd; /* Light gray background color */
+    color: black; /* Change text color */
+  }
+  
