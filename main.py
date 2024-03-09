@@ -10,9 +10,9 @@ def home():
 def conversation():
     return render_template("converstion.html") 
 
-@app.route('/mcq')
-def mcq():
-    return render_template('mcq.html')
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html')
 
 @app.route('/oral')
 def oral():
