@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pictionary App</title>
+  </head>
+
+  <body>  
+    <h1>Guess the Word</h1>
+    <h2>Language: {{ language }}</h2>
+    <img src="{{ url_for('static', filename=image) }}" alt="Word Image">
+    <form method="post">
+        <label for="guess_word">Enter Your Guess:</label>
+        <input type="text" id="guess_word" name="guess_word">
+        <button type="submit">Submit</button>
+    </form>
+    <p>{{ message }}</p>
+    
+  </body>
+</html>

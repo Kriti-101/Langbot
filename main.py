@@ -1,9 +1,56 @@
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, render_template, url_for, request, jsonify, session
 import openai
 from openai import OpenAI
 import time
+import random
 
 app = Flask(__name__, static_url_path='/static')
+
+word_image_database = {
+    'English': [
+        ('apple', 'apple.jpeg'),
+        ('table', 'table.jpeg'),
+        ('bottle', 'bottle.jpeg'),
+        ('watch', 'watch.jpeg'),
+        ('bat', 'bat.jpeg')
+    ],
+    'Hindi': [
+        ('सेब', 'apple.jpeg'),
+        ('मेज़', 'table.jpeg'),
+        ('बोतल', 'bottle.jpeg'),
+        ('घड़ी', 'watch.jpeg'),
+        ('बैट', 'bat.jpeg')
+    ],
+    'French': [
+        ('pomme', 'apple.jpeg'),
+        ('table', 'table.jpeg'),
+        ('bouteille', 'bottle.jpeg'),
+        ('montre', 'watch.jpeg'),
+        ('chauve-souris', 'bat.jpeg')
+    ],
+    'German': [
+        ('Apfel', 'apple.jpeg'),
+        ('Tisch', 'table.jpeg'),
+        ('Flasche', 'bottle.jpeg'),
+        ('Uhr', 'watch.jpeg'),
+        ('Fledermaus', 'bat.jpeg')
+    ],
+    'Kannada': [
+        ('ಸೇಬು', 'apple.jpeg'),
+        ('ಟೇಬಲ್', 'table.jpeg'),
+        ('ಬಾಟಲ್', 'bottle.jpeg'),
+        ('ಗಡಿಯಾರ', 'watch.jpeg'),
+        ('ಪಟಗಳು', 'bat.jpeg')
+    ]
+}
+# Get word and image list for a specific language (e.g., English)
+english_words_images = word_image_database['English']
+
+
+# Print the word and image pairs
+for word, image in english_words_images:
+    english_word_image_pairs = [{'word': word, 'image': image} for word, image in english_words_images]
+
 
 @app.route("/")
 def home():
@@ -13,6 +60,24 @@ def home():
 def conversation():
     return render_template("converstion.html") 
 
+@app.route('/pictionary', methods=['GET', 'POST'])
+def pictionary():
+    language = request.args.get('language', 'English')     
+
+    for i in word_image_database.get(language, []):
+        if request.method == 'POST':
+            guess_word = request.form['guess_word']
+            if guess_word.lower() == word.lower():
+                message = 'Correct!'   
+
+            else:
+                message = 'Incorrect! Try again.'
+        
+        else:
+            message = ''
+        
+    return render_template('pictionary.html', language=language, word=word, image=image, message=message)
+
 @app.route('/quiz')
 def quiz():
     return render_template('quiz.html')
@@ -20,50 +85,6 @@ def quiz():
 @app.route('/oral')
 def oral():
     return render_template('oral.html')
-def openai_endpoint():
-    user_input = request.json.get('userInput')
-    # Create the language teaching assistant
-
-    client = OpenAI(api_key="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")
-
-    assistant = client.beta.assistants.create(
-        name="Lang_bot",
-        instructions="You are a helpful assistant who interacts with the user to teach them languages. You have to clear their doubts and answer to the point. Assume the role given by the user and continue to chat with them.",
-        #tools=[{"type": "retrieval"}],
-        model="gpt-3.5-turbo-0125"  # or any other language-focused model
-    )
-
-    # Create a new thread
-    thread = client.beta.threads.create()
-
-    # Add a message to the thread
-    message = client.beta.threads.messages.create(
-        thread_id=thread.id,
-        role="user",
-        content=request.json.get('userInput')
-    )
-
-    # Run the assistant on the thread
-    run = client.beta.threads.runs.create(
-        thread_id=thread.id,
-        assistant_id=assistant.id,
-        #messages=messages_data,
-        instructions="Please address the user as User. Consider the user as beginner "
-    )
-
-    print(run)
-
-    while run.status != 'completed':
-        time.sleep(1);
-        run = client.beta.threads.runs.retrieve(thread_id = thread.id, run_id = run.id)
-        print(run.status)
-
-    messages = client.beta.threads.messages.list(
-        thread_id=thread.id,
-    )
-
-    print(messages)
-    print(messages.data[0].content[0].text.value)
 
 def openai_endpoint():
     message = request.json.get('message')
